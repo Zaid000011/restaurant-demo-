@@ -1,0 +1,1861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brunch &amp; Cake Park St. — Sheikh Zayed, Cairo</title>
+  <meta name="description" content="Brunch &amp; Cake Park St. — Your perfect brunch destination at Park Street Mall, Sheikh Zayed. Open daily from 9AM." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── CSS Custom Properties ─────────────────────────────── */
+    :root {
+      --clr-bg:          #0f0e0c;
+      --clr-surface:     #1a1814;
+      --clr-surface-2:   #252219;
+      --clr-cream:       #f5f0e8;
+      --clr-cream-dim:   #c9bfa8;
+      --clr-gold:        #c9a84c;
+      --clr-gold-light:  #e8c96a;
+      --clr-gold-dim:    #8a6f30;
+      --clr-charcoal:    #2c2820;
+      --clr-border:      rgba(201,168,76,0.18);
+      --clr-glass:       rgba(15,14,12,0.72);
+      --font-head:       'Playfair Display', Georgia, serif;
+      --font-body:       'Inter', system-ui, sans-serif;
+      --radius-sm:       6px;
+      --radius-md:       14px;
+      --radius-lg:       24px;
+      --shadow-gold:     0 0 40px rgba(201,168,76,0.12);
+      --transition:      0.35s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /* ─── Reset & Base ──────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      background: var(--clr-bg);
+      color: var(--clr-cream);
+      font-family: var(--font-body);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+    /* ─── Utility ───────────────────────────────────────────── */
+    .container {
+      width: min(1160px, 92vw);
+      margin-inline: auto;
+    }
+    .section-label {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--clr-gold);
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-family: var(--font-head);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      color: var(--clr-cream);
+      line-height: 1.2;
+    }
+    .section-title em { font-style: italic; color: var(--clr-gold); }
+    .divider {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--clr-gold), transparent);
+      margin: 1.25rem 0 2rem;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 2rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .btn-gold {
+      background: var(--clr-gold);
+      color: var(--clr-bg);
+    }
+    .btn-gold:hover { background: var(--clr-gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,168,76,0.35); }
+    .btn-outline {
+      border: 1.5px solid var(--clr-gold);
+      color: var(--clr-gold);
+    }
+    .btn-outline:hover { background: var(--clr-gold); color: var(--clr-bg); transform: translateY(-2px); }
+
+    /* scroll animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ─── NAVBAR ────────────────────────────────────────────── */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 1.4rem 0;
+      transition: var(--transition);
+    }
+    #navbar.scrolled {
+      background: var(--clr-bg);
+      padding: 0.9rem 0;
+      box-shadow: 0 2px 32px rgba(0,0,0,0.6);
+      border-bottom: 1px solid var(--clr-border);
+    }
+    #navbar .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: var(--font-head);
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--clr-gold);
+      letter-spacing: 0.04em;
+    }
+    .nav-logo span { color: var(--clr-cream); }
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2.2rem;
+      align-items: center;
+    }
+    .nav-links a {
+      font-size: 0.83rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--clr-cream-dim);
+      transition: color var(--transition);
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 1.5px;
+      background: var(--clr-gold);
+      transition: width var(--transition);
+    }
+    .nav-links a:hover { color: var(--clr-gold); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-reserve {
+      padding: 0.6rem 1.4rem;
+      background: var(--clr-gold);
+      color: var(--clr-bg) !important;
+      border-radius: var(--radius-sm);
+    }
+    .nav-reserve:hover { background: var(--clr-gold-light) !important; }
+    .nav-reserve::after { display: none !important; }
+
+    /* hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 4px;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 26px; height: 2px;
+      background: var(--clr-cream);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* mobile nav */
+    .nav-mobile {
+      display: none;
+      flex-direction: column;
+      gap: 0;
+      background: var(--clr-surface);
+      border-top: 1px solid var(--clr-border);
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a {
+      padding: 1rem 1.5rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--clr-cream-dim);
+      border-bottom: 1px solid var(--clr-border);
+      transition: color var(--transition), background var(--transition);
+    }
+    .nav-mobile a:hover { color: var(--clr-gold); background: rgba(201,168,76,0.06); }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    /* ─── HERO ──────────────────────────────────────────────── */
+    #hero {
+      position: relative;
+      height: 100vh;
+      min-height: 620px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1800&q=80&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center 30%;
+      transform: scale(1.08);
+      transition: transform 0.1s linear;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(10,9,8,0.55) 0%,
+        rgba(10,9,8,0.4) 50%,
+        rgba(10,9,8,0.8) 100%
+      );
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      padding: 2rem;
+    }
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--clr-gold);
+      border: 1px solid rgba(201,168,76,0.4);
+      padding: 0.45rem 1.2rem;
+      border-radius: 999px;
+      margin-bottom: 1.5rem;
+      backdrop-filter: blur(8px);
+    }
+    .hero-title {
+      font-family: var(--font-head);
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: #fff;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+      margin-bottom: 1.25rem;
+    }
+    .hero-title em { font-style: italic; color: var(--clr-gold-light); }
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: rgba(245,240,232,0.82);
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+      font-weight: 300;
+    }
+    .hero-ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .hero-scroll {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      color: rgba(245,240,232,0.5);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      z-index: 1;
+      animation: bounce 2.2s infinite;
+    }
+    .hero-scroll::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 36px;
+      background: linear-gradient(to bottom, rgba(201,168,76,0.7), transparent);
+    }
+    @keyframes bounce {
+      0%,100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ─── ABOUT ─────────────────────────────────────────────── */
+    #about { padding: 7rem 0; }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .about-text p {
+      color: var(--clr-cream-dim);
+      margin-bottom: 1.2rem;
+      font-size: 1.02rem;
+    }
+    .about-stats {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--clr-border);
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-family: var(--font-head);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--clr-gold);
+      display: block;
+    }
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--clr-cream-dim);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .about-image-wrap {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .about-image-wrap img {
+      width: 100%;
+      height: 520px;
+      object-fit: cover;
+      transition: transform 0.7s ease;
+    }
+    .about-image-wrap:hover img { transform: scale(1.04); }
+    .about-image-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, var(--clr-gold-dim), transparent 60%);
+      z-index: -1;
+    }
+
+    @media (max-width: 900px) {
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .about-image-wrap img { height: 340px; }
+    }
+
+    /* ─── MENU ──────────────────────────────────────────────── */
+    #menu { padding: 7rem 0; background: var(--clr-surface); }
+    .menu-header { text-align: center; margin-bottom: 3.5rem; }
+    .menu-header .divider { margin-inline: auto; }
+
+    .tab-nav {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      padding: 0.6rem 1.6rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--clr-cream-dim);
+      border: 1.5px solid var(--clr-border);
+      transition: var(--transition);
+    }
+    .tab-btn:hover { border-color: var(--clr-gold); color: var(--clr-gold); }
+    .tab-btn.active { background: var(--clr-gold); color: var(--clr-bg); border-color: var(--clr-gold); }
+
+    .tab-panel { display: none; }
+    .tab-panel.active {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      animation: fadeUp 0.4s ease forwards;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    .dish-card {
+      background: var(--clr-surface-2);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius-md);
+      padding: 1.6rem;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .dish-card:hover {
+      border-color: var(--clr-gold-dim);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-gold);
+    }
+    .dish-tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--clr-gold);
+    }
+    .dish-name {
+      font-family: var(--font-head);
+      font-size: 1.22rem;
+      color: var(--clr-cream);
+    }
+    .dish-desc { font-size: 0.88rem; color: var(--clr-cream-dim); }
+    .dish-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-top: 1rem;
+      border-top: 1px solid var(--clr-border);
+    }
+    .dish-price {
+      font-family: var(--font-head);
+      font-size: 1.18rem;
+      color: var(--clr-gold);
+      font-weight: 600;
+    }
+    .dish-badge {
+      font-size: 0.7rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      background: rgba(201,168,76,0.12);
+      color: var(--clr-gold);
+      border: 1px solid rgba(201,168,76,0.25);
+    }
+
+    /* ─── GALLERY ───────────────────────────────────────────── */
+    #gallery { padding: 7rem 0; }
+    .gallery-header { text-align: center; margin-bottom: 3rem; }
+    .gallery-header .divider { margin-inline: auto; }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: auto;
+      gap: 1rem;
+    }
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+    }
+    .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+    .gallery-item:nth-child(5) { grid-column: span 2; }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      min-height: 200px;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .gallery-item:hover img { transform: scale(1.07); }
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      opacity: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity var(--transition);
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-overlay svg { color: #fff; width: 36px; height: 36px; }
+
+    @media (max-width: 768px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
+      .gallery-item:nth-child(5) { grid-column: span 2; }
+    }
+
+    /* Lightbox */
+    #lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.95);
+      z-index: 9000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    #lightbox.open { display: flex; }
+    .lb-img {
+      max-width: 90vw;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: var(--radius-sm);
+    }
+    .lb-close, .lb-prev, .lb-next {
+      position: absolute;
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      border-radius: 50%;
+      width: 48px; height: 48px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 1.4rem;
+      transition: background var(--transition);
+    }
+    .lb-close:hover, .lb-prev:hover, .lb-next:hover { background: rgba(201,168,76,0.5); }
+    .lb-close { top: 1.5rem; right: 1.5rem; }
+    .lb-prev { left: 1.5rem; top: 50%; transform: translateY(-50%); }
+    .lb-next { right: 1.5rem; top: 50%; transform: translateY(-50%); }
+
+    /* ─── TESTIMONIALS ──────────────────────────────────────── */
+    #testimonials { padding: 7rem 0; background: var(--clr-surface); }
+    .test-header { text-align: center; margin-bottom: 1rem; }
+    .test-header .divider { margin-inline: auto; }
+
+    /* Google score badge */
+    .google-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      background: var(--clr-surface-2);
+      border: 1px solid var(--clr-border);
+      border-radius: 999px;
+      padding: 0.55rem 1.2rem;
+      margin-bottom: 3rem;
+    }
+    .google-logo {
+      display: flex;
+      gap: 1.5px;
+      font-weight: 800;
+      font-size: 0.88rem;
+      font-family: var(--font-body);
+    }
+    .g-blue { color: #4285F4; }
+    .g-red { color: #EA4335; }
+    .g-yellow { color: #FBBC05; }
+    .g-green { color: #34A853; }
+    .google-score {
+      font-family: var(--font-head);
+      font-size: 1.05rem;
+      color: var(--clr-cream);
+    }
+    .google-score .stars { color: #FBBC05; letter-spacing: 1px; }
+
+    /* carousel */
+    .carousel-wrap { position: relative; overflow: hidden; }
+    .carousel-track {
+      display: flex;
+      transition: transform 0.55s cubic-bezier(0.4,0,0.2,1);
+    }
+    .review-card {
+      min-width: 100%;
+      padding: 0 1rem;
+    }
+    @media (min-width: 768px) {
+      .review-card { min-width: 50%; }
+    }
+    @media (min-width: 1100px) {
+      .review-card { min-width: 33.333%; }
+    }
+
+    .review-inner {
+      background: var(--clr-surface-2);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius-md);
+      padding: 1.8rem;
+      height: 100%;
+      transition: var(--transition);
+    }
+    .review-inner:hover { border-color: var(--clr-gold-dim); box-shadow: var(--shadow-gold); }
+
+    .review-top {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    .avatar {
+      width: 46px; height: 46px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .review-meta { flex: 1; }
+    .reviewer-name { font-weight: 600; font-size: 0.95rem; color: var(--clr-cream); }
+    .review-date { font-size: 0.75rem; color: var(--clr-cream-dim); margin-top: 1px; }
+    .review-stars { color: #FBBC05; font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 0.8rem; }
+    .review-text { font-size: 0.9rem; color: var(--clr-cream-dim); line-height: 1.6; }
+    .review-more {
+      background: none;
+      border: none;
+      color: var(--clr-gold);
+      font-size: 0.85rem;
+      cursor: pointer;
+      padding: 0;
+      margin-top: 0.4rem;
+      font-family: inherit;
+    }
+    .google-icon {
+      margin-left: auto;
+      opacity: 0.6;
+      font-size: 0.72rem;
+      color: var(--clr-cream-dim);
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    /* dot nav */
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 2.5rem;
+    }
+    .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--clr-border);
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .dot.active { background: var(--clr-gold); transform: scale(1.3); }
+    .carousel-arrows {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .carr-btn {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: 1.5px solid var(--clr-border);
+      color: var(--clr-cream-dim);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      transition: var(--transition);
+    }
+    .carr-btn:hover { border-color: var(--clr-gold); color: var(--clr-gold); }
+
+    /* ─── RESERVATION ───────────────────────────────────────── */
+    #reservation { padding: 7rem 0; }
+    .res-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .res-info h3 {
+      font-family: var(--font-head);
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--clr-cream);
+    }
+    .res-info p { color: var(--clr-cream-dim); margin-bottom: 2rem; font-size: 0.95rem; }
+    .res-feature {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      margin-bottom: 1.2rem;
+    }
+    .res-icon {
+      width: 40px; height: 40px;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .res-feature-text strong { display: block; font-size: 0.9rem; color: var(--clr-cream); }
+    .res-feature-text span { font-size: 0.82rem; color: var(--clr-cream-dim); }
+
+    .res-form {
+      background: var(--clr-surface);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.45rem; margin-bottom: 1.2rem; }
+    .form-group label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--clr-cream-dim);
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: var(--clr-surface-2);
+      border: 1.5px solid var(--clr-border);
+      border-radius: var(--radius-sm);
+      padding: 0.78rem 1rem;
+      color: var(--clr-cream);
+      font-family: inherit;
+      font-size: 0.92rem;
+      transition: border-color var(--transition);
+      outline: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--clr-gold);
+    }
+    .form-group input.error,
+    .form-group select.error { border-color: #e05a5a; }
+    .form-error { font-size: 0.78rem; color: #e07575; }
+    .form-group select option { background: var(--clr-surface-2); }
+    .form-group textarea { resize: vertical; min-height: 90px; }
+    .form-submit { width: 100%; padding: 1rem; font-size: 0.95rem; font-weight: 600; position: relative; overflow: hidden; }
+    .form-submit .spinner {
+      display: none;
+      width: 18px; height: 18px;
+      border: 2px solid rgba(15,14,12,0.4);
+      border-top-color: var(--clr-bg);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+    .form-submit.loading .btn-text { display: none; }
+    .form-submit.loading .spinner { display: block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Toast */
+    #toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: #2a5c3f;
+      color: #fff;
+      padding: 1rem 2rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      font-weight: 500;
+      z-index: 9999;
+      transition: transform 0.4s ease;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      pointer-events: none;
+    }
+    #toast.show { transform: translateX(-50%) translateY(0); }
+
+    @media (max-width: 900px) {
+      .res-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    /* ─── CONTACT & HOURS ───────────────────────────────────── */
+    #contact { padding: 7rem 0; background: var(--clr-surface); }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .hours-table { width: 100%; border-collapse: collapse; margin-top: 1.5rem; }
+    .hours-table tr { border-bottom: 1px solid var(--clr-border); }
+    .hours-table td {
+      padding: 0.8rem 0;
+      font-size: 0.9rem;
+      color: var(--clr-cream-dim);
+    }
+    .hours-table td:first-child { color: var(--clr-cream); font-weight: 500; }
+    .hours-table td:last-child { text-align: right; }
+    .contact-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+      margin-bottom: 1.2rem;
+    }
+    .contact-icon {
+      width: 38px; height: 38px;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .contact-detail strong { display: block; font-size: 0.85rem; color: var(--clr-cream); }
+    .contact-detail span { font-size: 0.85rem; color: var(--clr-cream-dim); }
+    .map-container {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--clr-border);
+      margin-top: 2rem;
+    }
+    .map-container iframe { display: block; width: 100%; height: 280px; border: none; }
+
+    @media (max-width: 900px) {
+      .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+    }
+
+    /* ─── FOOTER ────────────────────────────────────────────── */
+    footer {
+      background: var(--clr-charcoal);
+      border-top: 1px solid var(--clr-border);
+      padding: 3.5rem 0 2rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    .footer-brand p {
+      color: var(--clr-cream-dim);
+      font-size: 0.88rem;
+      margin-top: 0.8rem;
+      max-width: 280px;
+    }
+    .footer-col h4 {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--clr-gold);
+      margin-bottom: 1.2rem;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+    .footer-col ul a {
+      font-size: 0.88rem;
+      color: var(--clr-cream-dim);
+      transition: color var(--transition);
+    }
+    .footer-col ul a:hover { color: var(--clr-gold); }
+    .social-links {
+      display: flex;
+      gap: 0.8rem;
+      margin-top: 1.2rem;
+    }
+    .social-link {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      border: 1.5px solid var(--clr-border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      color: var(--clr-cream-dim);
+      transition: var(--transition);
+    }
+    .social-link:hover { border-color: var(--clr-gold); color: var(--clr-gold); background: rgba(201,168,76,0.1); }
+    .footer-bottom {
+      border-top: 1px solid var(--clr-border);
+      padding-top: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.8rem;
+      color: var(--clr-cream-dim);
+    }
+
+    @media (max-width: 768px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: span 2; }
+    }
+    @media (max-width: 480px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-brand { grid-column: auto; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════
+     NAVBAR
+══════════════════════════════════════════════════ -->
+<header id="navbar" aria-label="Main navigation">
+  <div class="container nav-inner">
+    <a href="#hero" class="nav-logo" aria-label="Brunch & Cake home">Brunch <span>&amp; Cake</span></a>
+    <nav aria-label="Site sections">
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#testimonials">Reviews</a></li>
+        <li><a href="#contact">Hours</a></li>
+        <li><a href="#reservation" class="nav-reserve">Reserve</a></li>
+      </ul>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Toggle mobile menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav class="nav-mobile" id="nav-mobile" aria-label="Mobile navigation">
+    <a href="#about">About</a>
+    <a href="#menu">Menu</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#testimonials">Reviews</a>
+    <a href="#contact">Hours &amp; Contact</a>
+    <a href="#reservation">Make a Reservation</a>
+  </nav>
+</header>
+
+<!-- ══════════════════════════════════════════════════
+     HERO
+══════════════════════════════════════════════════ -->
+<section id="hero" aria-label="Hero">
+  <div class="hero-bg" id="hero-parallax"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Park Street Mall, Sheikh Zayed</div>
+    <h1 class="hero-title">Your Favourite<br><em>Brunch</em><br>Destination</h1>
+    <p class="hero-sub">Sweet &amp; savoury delights served daily from 9AM. Breakfast, brunch, lunch &amp; dinner in the heart of Sheikh Zayed.</p>
+    <div class="hero-ctas">
+      <a href="#menu" class="btn btn-gold">View Our Menu</a>
+      <a href="#reservation" class="btn btn-outline">Make a Reservation</a>
+    </div>
+  </div>
+  <div class="hero-scroll" aria-hidden="true">Scroll</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     ABOUT
+══════════════════════════════════════════════════ -->
+<section id="about" aria-label="About Brunch & Cake Park St.">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <span class="section-label">Our Story</span>
+        <h2 class="section-title">More Than <em>Brunch</em></h2>
+        <div class="divider"></div>
+        <p>Brunch &amp; Cake was born from a simple but powerful idea: that every hour of the day deserves food that makes you feel good. Nestled in the vibrant Park Street Mall in Sheikh Zayed, our boho-chic venue is a place to slow down, gather with the people you love, and enjoy dishes that are equal parts beautiful and delicious — from our legendary French toast to our showstopping cakes and everything in between.</p>
+        <p>We open our doors every morning at 9AM and stay open into the late evening, because great food and great company shouldn't be rushed. Our warm, polite team is here to make every visit feel effortless and special — whether it's your first time at our table or your hundredth. Walk-ins are always welcome, and we can't wait to see you.</p>
+        <div class="about-stats">
+          <div class="stat-item">
+            <span class="stat-num">4.8</span>
+            <span class="stat-label">Google Rating</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">2.4K+</span>
+            <span class="stat-label">Happy Reviews</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">9AM</span>
+            <span class="stat-label">Open Every Day</span>
+          </div>
+        </div>
+      </div>
+      <div class="about-image-wrap reveal">
+        <img
+          src="https://images.unsplash.com/photo-1600891964092-4316c288032e?w=900&q=80&auto=format&fit=crop"
+          alt="Beautifully presented brunch dish at Brunch & Cake Park St."
+          loading="lazy"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     MENU
+══════════════════════════════════════════════════ -->
+<section id="menu" aria-label="Restaurant menu">
+  <div class="container">
+    <div class="menu-header reveal">
+      <span class="section-label">Curated Flavours</span>
+      <h2 class="section-title">Our <em>Menu</em></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="tab-nav" role="tablist">
+      <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-starters" data-tab="starters">Starters</button>
+      <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-mains" data-tab="mains">Mains</button>
+      <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-desserts" data-tab="desserts">Desserts</button>
+      <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-drinks" data-tab="drinks">Drinks</button>
+    </div>
+
+    <!-- Starters -->
+    <div id="tab-starters" class="tab-panel active" role="tabpanel">
+      <div class="dish-card">
+        <span class="dish-tag">Vegetarian</span>
+        <h3 class="dish-name">Baladi Burrata</h3>
+        <p class="dish-desc">Creamy burrata with heirloom tomatoes, za'atar oil, dukkah crumble, and fresh basil from our herb garden.</p>
+        <div class="dish-footer">
+          <span class="dish-price">EGP 185</span>
+          <span class="dish-badge">Chef's Pick</span>
+        </div>
+      </div>
+      <div class="dish-card">
+        <span class="dish-tag">Seafood</span>
+        <h3 class="dish-name">Alexandria Prawn Bisque</h3>
+        <p class="dish-desc">Velvety bisque of wild Alexandrian prawns, saffron cream, fennel oil, and a crunchy tuile of sesame.</p>
+        <div class="dish-footer">
+          <span class="dish-price">EGP 220</span>
+        </div>
+      </div>
+      <div class="dish-card">
+        <span class="dish-tag">Signature</span>
+        <h3 class="dish-name">Sinai Spiced Lamb Kofta</h3>
+        <p class="dish-desc">Herb-forward lamb kofta on a bed of labneh, pomegranate molasses, toasted pistachio, and charred flatbread.</p>
+        <div class="dish-footer">
+          <span class="dish-price">EGP 240</span>
+          <span class="dish-badge">Signature</span>
+        </div>
+      </div>
+      <div class="dish-card">
+        <span class="dish-tag">Vegan</span>
+        <h3 class="dish-name">Foul Méditerranée</h3>
+        <p class="dish-desc">Our reimagining of the Egyptian classic: slow-cooked fava beans with lemon-tahini, cherry tomatoes, and cold-pressed Sinai olive oil.</p>
+        <div class="dish-footer">
+          <span class="dish-price">EGP 145</span>
+        </div>
+      </div>
+      <div class="dish-card">
+        <span class="dish-tag">Seafood</span>
+        <h3 class="dish-name">Smoked Salmon Kibbeh Nayeh</h3>
+        <p class="dish-desc">Cured cold-smoked salmon formed in the style of Lebanese kibbeh nayeh, with capers, sumac onions, and dill crème fraîche.</p>
+        <div class="dish-footer">
+          <span class="dish-price">EGP 265</span>
+          <span class="dish-badge">New</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mains -->
+    <div id="tab-mains" class="tab-panel" role="tabpanel">
+      <div class="dish-card">
+        <span class="dish-tag">Signature</span>
+        <h3 class="dish-name">Saffron Sea Bass</h3>
+        <p class="dish-desc">Line-caught sea bass, pan-seared with a saffron-butter crust, served over Nile perch brandade and wilted sea greens.</p>
+        <div class="dish-footer">
+          <span class="dish-price">EGP 395</span>
+          <span class="dish-badge">Best Seller</span>
+        </div>
+      </div>
+      <div class="dish-card">
+        <span class="dish-tag">Meat</span>
+        <h3 class="dish-name">Ras el Hanout Rack of Lamb</h3>
+        <p class="dish-desc">French-trimmed rack of lamb coated in a 24-spice ras el hanout crust, served with roasted eggplant purée and preserved lemon jus.</p>
+        <div class="dish-footer">
+          <span class="dish-price">EGP 520</span>
+          <span class="dish-badge">Chef's Pick</span>
+        </div>
+      </div>
+      <div class="dish-card">
+        <span class="dish-tag">Vegetarian</span>
+        <h3 class="dish-name">Grilled Cauliflower Royale</h3>
+        <p class="dish-desc">Whole-roasted Egyptian cauliflower in harissa-honey glaze, with lentil ragù, pomegranate seeds, and herbed tahini.</p>
+        <div class="dish-footer">
+          <span class="dish-price">EGP 285</span>
+        </div>
+      </div>
+      <div class="dish-card">
+        <span class="dish-tag">Pasta</span>
+        <h3 class="dish-name">Seafood Orzo al Forno</h3>
+        <p class="dish-desc">Baked orzo with mussels, baby calamari, sun-dried tomato, ouzo-spiked broth, and melted kefalotiri cheese.</p>
+        <div class="dish-footer">
+          <span class="dish-price">EGP 360</span>
+        </div>
+      </div>
+      <div class="dish-card">
+        <span class="dish-tag">Meat</span>
+        <h3 class="dish-name">Slow-Braised Short Rib</h3>
+        <p class="dish-desc">72-hour wagyu short rib with carob molasses glaze, truffle potato dauphinois, and charred onion soubise.</p>
+        <div class="dish-footer">
+          <span class="dish-price">EGP 595</span>
+          <span class="dish-badge">Premium</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Desserts -->
+    <div id="tab-desserts" class="tab-panel" role="tabpanel">
+      <div class="dish-card">
+        <span class="dish-tag">Signature</span>
+        <h3 class="dish-name">Konafa Brûlée</h3>
+        <p class="dish-desc">Classic Egyptian konafa crust meets French crème brûlée — vanilla custard beneath a caramelised kataifi lattice, with orange blossom syrup.</p>
+        <div class="dish-footer">
+          <span class="dish-price">EGP 165</span>
+          <span class="dish-badge">Iconic</span>
+        </div>
+      </div>
+      <div class="dish-card">
+        <span class="dish-tag">Chocolate</span>
+        <h3 class="dish-name">Dark Chocolate &amp; Tahini Dome</h3>
+        <p class="dish-desc">Valrhona 72% dome with a warm tahini-caramel core, sesame praline, and cardamom ice cream.</p>
+        <div class="dish-footer">
+          <span class="dish-price">EGP 185</span>
+          <span class="dish-badge">Chef's Pick</span>
+        </div>
+      </div>
+      <div class="dish-card">
+        <span class="dish-tag">Fruit</span>
+        <h3 class="dish-name">Mango &amp; Rosewater Pavlova</h3>
+        <p class="dish-desc">Crisp meringue topped with whipped cream, fresh Ismailia mango, rosewater gel, and crushed pistachios.</p>
+        <div class="dish-footer">
+          <span class="dish-price">EGP 155</span>
+        </div>
+      </div>
+      <div class="dish-card">
+        <span class="dish-tag">Cold</span>
+        <h3 class="dish-name">Saffron &amp; Honey Panna Cotta</h3>
+        <p class="dish-desc">Silky Italian-style panna cotta infused with Siwa saffron, drizzled with raw honey, and served with candied walnuts.</p>
+        <div class="dish-footer">
+          <span class="dish-price">EGP 145</span>
+        </div>
+      </div>
+      <div class="dish-card">
+        <span class="dish-tag">Sharing</span>
+        <h3 class="dish-name">Maison Dorée Petit Fours</h3>
+        <p class="dish-desc">A curated selection of house-made truffles, date-almond bites, and cardamom-scented financiers to end the evening.</p>
+        <div class="dish-footer">
+          <span class="dish-price">EGP 195</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Drinks -->
+    <div id="tab-drinks" class="tab-panel" role="tabpanel">
+      <div class="dish-card">
+        <span class="dish-tag">Cocktail</span>
+        <h3 class="dish-name">Nile Sunset</h3>
+        <p class="dish-desc">Hibiscus-infused gin, yuzu juice, rose water, cardamom bitters, and a salt rim — a Cairo sunset in a glass.</p>
+        <div class="dish-footer">
+          <span class="dish-price">EGP 145</span>
+          <span class="dish-badge">Signature</span>
+        </div>
+      </div>
+      <div class="dish-card">
+        <span class="dish-tag">Mocktail</span>
+        <h3 class="dish-name">Desert Bloom</h3>
+        <p class="dish-desc">Karkadeh (hibiscus), fresh mint, tamarind, sparkling water, and a honey syrup — refreshing and alcohol-free.</p>
+        <div class="dish-footer">
+          <span class="dish-price">EGP 95</span>
+        </div>
+      </div>
+      <div class="dish-card">
+        <span class="dish-tag">Wine</span>
+        <h3 class="dish-name">Lebanese White Selection</h3>
+        <p class="dish-desc">A sommelier-curated glass from our Lebanese and Levantine white wine cellar — ask our team for today's pour.</p>
+        <div class="dish-footer">
+          <span class="dish-price">EGP 180</span>
+        </div>
+      </div>
+      <div class="dish-card">
+        <span class="dish-tag">Hot</span>
+        <h3 class="dish-name">Saffron Arabic Coffee</h3>
+        <p class="dish-desc">Traditional Arabic qahwa steeped with Siwa saffron, cardamom pods, and a hint of orange blossom, served with dates.</p>
+        <div class="dish-footer">
+          <span class="dish-price">EGP 75</span>
+          <span class="dish-badge">Traditional</span>
+        </div>
+      </div>
+      <div class="dish-card">
+        <span class="dish-tag">Cocktail</span>
+        <h3 class="dish-name">Alexandria Spritz</h3>
+        <p class="dish-desc">Aperol, lemon-verbena syrup, mint, prosecco, and a sliver of dried orange — fresh and Mediterranean.</p>
+        <div class="dish-footer">
+          <span class="dish-price">EGP 155</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     GALLERY
+══════════════════════════════════════════════════ -->
+<section id="gallery" aria-label="Photo gallery">
+  <div class="container">
+    <div class="gallery-header reveal">
+      <span class="section-label">Atmosphere &amp; Cuisine</span>
+      <h2 class="section-title">A Feast for <em>the Eyes</em></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item" data-src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&q=80&auto=format&fit=crop" tabindex="0" role="button" aria-label="Open gallery image 1">
+        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=900&q=75&auto=format&fit=crop" alt="Elegant restaurant dining room" loading="lazy" />
+        <div class="gallery-overlay"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></div>
+      </div>
+      <div class="gallery-item" data-src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&q=80&auto=format&fit=crop" tabindex="0" role="button" aria-label="Open gallery image 2">
+        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=75&auto=format&fit=crop" alt="Beautifully plated Mediterranean dish" loading="lazy" />
+        <div class="gallery-overlay"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></div>
+      </div>
+      <div class="gallery-item" data-src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=1200&q=80&auto=format&fit=crop" tabindex="0" role="button" aria-label="Open gallery image 3">
+        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=75&auto=format&fit=crop" alt="Fresh pizza from wood-fired oven" loading="lazy" />
+        <div class="gallery-overlay"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></div>
+      </div>
+      <div class="gallery-item" data-src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=1200&q=80&auto=format&fit=crop" tabindex="0" role="button" aria-label="Open gallery image 4">
+        <img src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=600&q=75&auto=format&fit=crop" alt="Cozy restaurant interior with warm lighting" loading="lazy" />
+        <div class="gallery-overlay"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></div>
+      </div>
+      <div class="gallery-item" data-src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&q=80&auto=format&fit=crop" tabindex="0" role="button" aria-label="Open gallery image 5">
+        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&q=75&auto=format&fit=crop" alt="Atmospheric fine dining setup" loading="lazy" />
+        <div class="gallery-overlay"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></div>
+      </div>
+      <div class="gallery-item" data-src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=1200&q=80&auto=format&fit=crop" tabindex="0" role="button" aria-label="Open gallery image 6">
+        <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=600&q=75&auto=format&fit=crop" alt="Guests enjoying dinner" loading="lazy" />
+        <div class="gallery-overlay"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div id="lightbox" role="dialog" aria-label="Image viewer" aria-modal="true">
+  <img class="lb-img" id="lb-img" src="" alt="Gallery image" />
+  <button class="lb-close" id="lb-close" aria-label="Close lightbox">✕</button>
+  <button class="lb-prev" id="lb-prev" aria-label="Previous image">&#8592;</button>
+  <button class="lb-next" id="lb-next" aria-label="Next image">&#8594;</button>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     TESTIMONIALS
+══════════════════════════════════════════════════ -->
+<section id="testimonials" aria-label="Customer testimonials">
+  <div class="container">
+    <div class="test-header reveal">
+      <span class="section-label">What Guests Say</span>
+      <h2 class="section-title">Voices of Our <em>Table</em></h2>
+      <div class="divider" style="margin-inline:auto;"></div>
+      <!-- Google badge -->
+      <div class="google-badge" aria-label="4.9 stars on Google Reviews">
+        <span class="google-logo">
+          <span class="g-blue">G</span><span class="g-red">o</span><span class="g-yellow">o</span><span class="g-blue">g</span><span class="g-green">l</span><span class="g-red">e</span>
+        </span>
+        <span class="google-score">
+          <strong id="avg-score">4.8</strong>&nbsp;<span class="stars" id="avg-stars">★★★★★</span>&nbsp;on Google · 2,422 reviews
+        </span>
+      </div>
+    </div>
+
+    <div class="carousel-wrap" id="carousel" aria-live="polite">
+      <div class="carousel-track" id="carousel-track">
+        <!-- REPLACE WITH REAL GOOGLE REVIEWS — placeholder reviews below -->
+      </div>
+    </div>
+    <div class="carousel-arrows">
+      <button class="carr-btn" id="carr-prev" aria-label="Previous review">&#8592;</button>
+      <button class="carr-btn" id="carr-next" aria-label="Next review">&#8594;</button>
+    </div>
+    <div class="carousel-dots" id="carousel-dots" role="tablist" aria-label="Review navigation"></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     RESERVATION
+══════════════════════════════════════════════════ -->
+<section id="reservation" aria-label="Make a reservation">
+  <div class="container">
+    <div class="res-grid">
+      <div class="res-info reveal">
+        <span class="section-label">Book Your Table</span>
+        <h2 class="section-title">Reserve Your <em>Evening</em></h2>
+        <div class="divider"></div>
+        <p>We take reservations up to 30 days in advance. For parties of 8 or more, please call us directly.</p>
+        <div class="res-feature">
+          <div class="res-icon" aria-hidden="true">🕐</div>
+          <div class="res-feature-text">
+            <strong>Flexible Dining Hours</strong>
+            <span>Open daily — late seating available Fri &amp; Sat</span>
+          </div>
+        </div>
+        <div class="res-feature">
+          <div class="res-icon" aria-hidden="true">🍷</div>
+          <div class="res-feature-text">
+            <strong>Sommelier Pairing</strong>
+            <span>Request a curated wine or mocktail pairing menu</span>
+          </div>
+        </div>
+        <div class="res-feature">
+          <div class="res-icon" aria-hidden="true">🎂</div>
+          <div class="res-feature-text">
+            <strong>Special Occasions</strong>
+            <span>Mention celebrations in your notes — we love to surprise</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="res-form reveal" id="res-form-wrap">
+        <form id="res-form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="res-name">Full Name</label>
+              <input type="text" id="res-name" name="name" placeholder="Laila Hassan" autocomplete="name" />
+              <span class="form-error" id="err-name"></span>
+            </div>
+            <div class="form-group">
+              <label for="res-email">Email</label>
+              <input type="email" id="res-email" name="email" placeholder="you@email.com" autocomplete="email" />
+              <span class="form-error" id="err-email"></span>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="res-phone">Phone</label>
+              <input type="tel" id="res-phone" name="phone" placeholder="+20 110 0501101" autocomplete="tel" />
+              <span class="form-error" id="err-phone"></span>
+            </div>
+            <div class="form-group">
+              <label for="res-size">Party Size</label>
+              <select id="res-size" name="size">
+                <option value="">Select guests</option>
+                <option value="1">1 guest</option>
+                <option value="2">2 guests</option>
+                <option value="3">3 guests</option>
+                <option value="4">4 guests</option>
+                <option value="5">5 guests</option>
+                <option value="6">6 guests</option>
+                <option value="7">7 guests</option>
+              </select>
+              <span class="form-error" id="err-size"></span>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="res-date">Date</label>
+              <input type="date" id="res-date" name="date" />
+              <span class="form-error" id="err-date"></span>
+            </div>
+            <div class="form-group">
+              <label for="res-time">Preferred Time</label>
+              <select id="res-time" name="time">
+                <option value="">Select time</option>
+                <option value="12:00">12:00 PM</option>
+                <option value="13:00">1:00 PM</option>
+                <option value="14:00">2:00 PM</option>
+                <option value="15:00">3:00 PM</option>
+                <option value="18:00">6:00 PM</option>
+                <option value="19:00">7:00 PM</option>
+                <option value="20:00">8:00 PM</option>
+                <option value="21:00">9:00 PM</option>
+                <option value="22:00">10:00 PM</option>
+              </select>
+              <span class="form-error" id="err-time"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="res-notes">Special Requests (optional)</label>
+            <textarea id="res-notes" name="notes" placeholder="Allergies, celebrations, seating preferences…"></textarea>
+          </div>
+          <button type="submit" class="btn btn-gold form-submit" id="res-submit">
+            <span class="btn-text">Confirm Reservation</span>
+            <span class="spinner"></span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="toast" role="alert" aria-live="assertive">✓ Reservation request sent! We'll confirm within 2 hours.</div>
+
+<!-- ══════════════════════════════════════════════════
+     CONTACT & HOURS
+══════════════════════════════════════════════════ -->
+<section id="contact" aria-label="Contact and opening hours">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="reveal">
+        <span class="section-label">Find Us</span>
+        <h2 class="section-title">Hours &amp; <em>Contact</em></h2>
+        <div class="divider"></div>
+        <div class="contact-detail">
+          <div class="contact-icon" aria-hidden="true">📍</div>
+          <div>
+            <strong>Address</strong>
+            <span>Park Street Mall, 26th of July Corridor, Sheikh Zayed, Giza</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-icon" aria-hidden="true">📞</div>
+          <div>
+            <strong>Phone &amp; WhatsApp</strong>
+            <span><a href="tel:+201100501101" style="color:var(--clr-gold)">+20 110 0501101</a></span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-icon" aria-hidden="true">📸</div>
+          <div>
+            <strong>Instagram</strong>
+            <span><a href="https://instagram.com/brunchandcake.eg" target="_blank" rel="noopener" style="color:var(--clr-gold)">@brunchandcake.eg</a></span>
+          </div>
+        </div>
+        <h3 style="font-family:var(--font-head);font-size:1.1rem;color:var(--clr-cream);margin-top:2rem;margin-bottom:0.5rem;">Opening Hours</h3>
+        <table class="hours-table" aria-label="Opening hours">
+          <tbody>
+            <tr><td>Monday – Friday</td><td>9:00 AM – 12:00 AM</td></tr>
+            <tr><td>Saturday – Sunday</td><td>9:00 AM – 12:00 AM</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="reveal">
+        <div class="map-container" aria-label="Restaurant location map">
+          <!-- Google Maps embed placeholder — replace src with real embed URL -->
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3453.643!2d31.2357!3d30.0444!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzDCsDAyJzM5LjgiTiAzMcKwMTQnMDguNiJF!5e0!3m2!1sen!2seg!4v1600000000000"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Brunch & Cake Park St. location map"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="font-size:1.4rem;">Brunch <span style="color:var(--clr-cream);">&amp; Cake</span></div>
+        <p>Sweet &amp; savoury delights served daily from 9AM. Breakfast, brunch, lunch &amp; dinner at Park Street Mall, Sheikh Zayed.</p>
+        <div class="social-links" aria-label="Social media links">
+          <a href="#" class="social-link" aria-label="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="#" class="social-link" aria-label="Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="#" class="social-link" aria-label="TripAdvisor">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#about">Our Story</a></li>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#testimonials">Reviews</a></li>
+          <li><a href="#reservation">Reservations</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Visit Us</h4>
+        <ul>
+          <li><a href="tel:+201100501101">+20 110 0501101</a></li>
+          <li><a href="https://instagram.com/brunchandcake.eg" target="_blank" rel="noopener">@brunchandcake.eg</a></li>
+          <li><a href="#contact">Park St. Mall, Sheikh Zayed</a></li>
+          <li><a href="#contact">Opening Hours</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Brunch &amp; Cake Park St. All rights reserved.</span>
+      <span>Designed &amp; built by <a href="#" style="color:var(--clr-gold);transition:opacity 0.2s;" onmouseover="this.style.opacity='0.75'" onmouseout="this.style.opacity='1'">Zaid Hassan</a></span>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════════════ -->
+<script>
+// ─── Google Reviews Data ───────────────────────────────────────
+// REPLACE WITH REAL GOOGLE REVIEWS — paste your real reviews here to replace these placeholders
+const REVIEWS = [
+  {
+    name: "Yasmine El-Sayed",
+    rating: 5,
+    date: "March 2025",
+    text: "Brunch & Cake never disappoints. The French toast is absolutely divine — perfectly crispy on the outside, fluffy inside. The staff are incredibly polite and welcoming every single time. Such a cozy, beautiful place to spend a morning with friends. My favourite brunch spot in Sheikh Zayed by far."
+  },
+  {
+    name: "Ahmed Farouk",
+    rating: 5,
+    date: "February 2025",
+    text: "The carrot cake here is hands down the best I've had in Cairo. The food presentation is stunning — every dish looks like it belongs on a magazine cover. Distinctive service from start to finish, the team treated us like royalty. Will keep coming back again and again."
+  },
+  {
+    name: "Nour Khalil",
+    rating: 5,
+    date: "January 2025",
+    text: "I've tried brunch spots all over Cairo and nothing compares to the experience here. The shakshuka was rich and perfectly spiced, and the almond croissant was buttery perfection. The outdoor seating area is gorgeous on a sunny morning. Classy treatment from the whole team."
+  },
+  {
+    name: "Omar Tawfik",
+    rating: 4,
+    date: "December 2024",
+    text: "Great atmosphere and even better food. The breakfast pizza was a revelation — I never would have thought to order it but my friend insisted and I'm so glad she did. Warm, cozy interior and a staff that genuinely seems happy to be there. Highly recommended."
+  },
+  {
+    name: "Sara Mostafa",
+    rating: 5,
+    date: "November 2024",
+    text: "Took my whole family for a weekend brunch and everyone left completely happy. The Nutella French toast had the kids in awe and the flatbread was a hit with everyone. The service was attentive without being pushy. Brunch & Cake Park St. is a gem — don't miss it."
+  },
+  {
+    name: "Karim Adel",
+    rating: 5,
+    date: "October 2024",
+    text: "The iced vanilla latte alone is worth the trip. Paired with the pistachio raspberry cake and I was in heaven. The space is so thoughtfully designed — every corner is cozy and photogenic. The staff remember your name by your second visit. This place has real soul."
+  }
+];
+
+// ─── Avatar colours ────────────────────────────────────────────
+const AVATAR_COLORS = [
+  '#4285F4','#EA4335','#34A853','#FBBC05',
+  '#8B5CF6','#EC4899','#14B8A6','#F97316'
+];
+
+function getInitials(name) {
+  return name.split(' ').map(w => w[0]).slice(0,2).join('').toUpperCase();
+}
+
+function renderStars(n) {
+  return '★'.repeat(n) + '☆'.repeat(5 - n);
+}
+
+function avgRating(reviews) {
+  return (reviews.reduce((s,r) => s + r.rating, 0) / reviews.length).toFixed(1);
+}
+
+// ─── Build review cards ────────────────────────────────────────
+function buildReviews() {
+  const track = document.getElementById('carousel-track');
+  track.innerHTML = '';
+  const avg = avgRating(REVIEWS);
+  document.getElementById('avg-score').textContent = avg;
+
+  REVIEWS.forEach((r, i) => {
+    const card = document.createElement('div');
+    card.className = 'review-card';
+
+    const MAX_CHARS = 180;
+    const isLong = r.text.length > MAX_CHARS;
+    const short = isLong ? r.text.slice(0, MAX_CHARS) + '…' : r.text;
+    const color = AVATAR_COLORS[i % AVATAR_COLORS.length];
+
+    card.innerHTML = `
+      <div class="review-inner">
+        <div class="review-top">
+          <div class="avatar" style="background:${color}" aria-hidden="true">${getInitials(r.name)}</div>
+          <div class="review-meta">
+            <div class="reviewer-name">${r.name}</div>
+            <div class="review-date">${r.date || ''}</div>
+          </div>
+          <div class="google-icon" aria-label="Verified Google Review">
+            <span class="google-logo" style="font-size:0.7rem;">
+              <span class="g-blue">G</span><span class="g-red">o</span><span class="g-yellow">o</span><span class="g-blue">g</span><span class="g-green">l</span><span class="g-red">e</span>
+            </span>
+          </div>
+        </div>
+        <div class="review-stars" aria-label="${r.rating} out of 5 stars">${renderStars(r.rating)}</div>
+        <div class="review-text" id="rt-${i}">${short}</div>
+        ${isLong ? `<button class="review-more" data-idx="${i}" data-expanded="false" aria-expanded="false">Read more</button>` : ''}
+      </div>
+    `;
+    track.appendChild(card);
+  });
+
+  // Read more toggles
+  document.querySelectorAll('.review-more').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const idx = +btn.dataset.idx;
+      const expanded = btn.dataset.expanded === 'true';
+      const el = document.getElementById(`rt-${idx}`);
+      const MAX_CHARS = 180;
+      if (expanded) {
+        el.textContent = REVIEWS[idx].text.slice(0, MAX_CHARS) + '…';
+        btn.textContent = 'Read more';
+      } else {
+        el.textContent = REVIEWS[idx].text;
+        btn.textContent = 'Read less';
+      }
+      btn.dataset.expanded = String(!expanded);
+      btn.setAttribute('aria-expanded', String(!expanded));
+    });
+  });
+}
+
+// ─── Carousel ─────────────────────────────────────────────────
+let currentSlide = 0;
+let autoTimer = null;
+const SLIDE_INTERVAL = 4500;
+
+function getVisibleCount() {
+  if (window.innerWidth >= 1100) return 3;
+  if (window.innerWidth >= 768) return 2;
+  return 1;
+}
+
+function buildDots() {
+  const dots = document.getElementById('carousel-dots');
+  dots.innerHTML = '';
+  const total = Math.ceil(REVIEWS.length / getVisibleCount());
+  for (let i = 0; i < total; i++) {
+    const btn = document.createElement('button');
+    btn.className = 'dot' + (i === 0 ? ' active' : '');
+    btn.setAttribute('role', 'tab');
+    btn.setAttribute('aria-label', `Go to review set ${i + 1}`);
+    btn.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+    btn.addEventListener('click', () => goTo(i));
+    dots.appendChild(btn);
+  }
+}
+
+function goTo(idx) {
+  const total = Math.ceil(REVIEWS.length / getVisibleCount());
+  currentSlide = (idx + total) % total;
+  const vc = getVisibleCount();
+  const pct = (100 / vc) * currentSlide * vc / REVIEWS.length * REVIEWS.length;
+  document.getElementById('carousel-track').style.transform = `translateX(-${currentSlide * (100 / getVisibleCount()) * getVisibleCount() / REVIEWS.length * 100}%)`;
+
+  // simpler: shift by card-width * visibleCount * slide
+  const cardW = 100 / getVisibleCount();
+  document.getElementById('carousel-track').style.transform =
+    `translateX(-${currentSlide * cardW * getVisibleCount()}%)`;
+
+  document.querySelectorAll('.dot').forEach((d, i) => {
+    d.classList.toggle('active', i === currentSlide);
+    d.setAttribute('aria-selected', i === currentSlide ? 'true' : 'false');
+  });
+}
+
+function next() { goTo(currentSlide + 1); }
+function prev() { goTo(currentSlide - 1); }
+
+function startAuto() {
+  stopAuto();
+  autoTimer = setInterval(next, SLIDE_INTERVAL);
+}
+function stopAuto() { if (autoTimer) { clearInterval(autoTimer); autoTimer = null; } }
+
+function initCarousel() {
+  buildReviews();
+  buildDots();
+  currentSlide = 0;
+
+  document.getElementById('carr-next').addEventListener('click', () => { next(); startAuto(); });
+  document.getElementById('carr-prev').addEventListener('click', () => { prev(); startAuto(); });
+
+  const wrap = document.getElementById('carousel');
+  wrap.addEventListener('mouseenter', stopAuto);
+  wrap.addEventListener('mouseleave', startAuto);
+  wrap.addEventListener('touchstart', stopAuto, { passive: true });
+  wrap.addEventListener('touchend', startAuto, { passive: true });
+
+  startAuto();
+  window.addEventListener('resize', () => { buildDots(); goTo(0); });
+}
+
+// ─── Gallery Lightbox ──────────────────────────────────────────
+let lbImages = [];
+let lbIndex = 0;
+
+function openLightbox(idx) {
+  lbIndex = idx;
+  document.getElementById('lb-img').src = lbImages[idx];
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function lbNav(dir) {
+  lbIndex = (lbIndex + dir + lbImages.length) % lbImages.length;
+  document.getElementById('lb-img').src = lbImages[lbIndex];
+}
+
+function initGallery() {
+  const items = document.querySelectorAll('.gallery-item');
+  items.forEach((item, i) => {
+    lbImages.push(item.dataset.src);
+    item.addEventListener('click', () => openLightbox(i));
+    item.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(i); } });
+  });
+  document.getElementById('lb-close').addEventListener('click', closeLightbox);
+  document.getElementById('lb-prev').addEventListener('click', () => lbNav(-1));
+  document.getElementById('lb-next').addEventListener('click', () => lbNav(1));
+  document.getElementById('lightbox').addEventListener('click', e => {
+    if (e.target === document.getElementById('lightbox')) closeLightbox();
+  });
+  document.addEventListener('keydown', e => {
+    if (!document.getElementById('lightbox').classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') lbNav(-1);
+    if (e.key === 'ArrowRight') lbNav(1);
+  });
+}
+
+// ─── Menu Tabs ─────────────────────────────────────────────────
+function initTabs() {
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    });
+  });
+}
+
+// ─── Reservation Form ──────────────────────────────────────────
+function initForm() {
+  const form = document.getElementById('res-form');
+  const submit = document.getElementById('res-submit');
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('res-date').min = today;
+
+  function setError(id, msg) {
+    const el = document.getElementById('err-' + id);
+    const input = document.getElementById('res-' + id);
+    if (el) el.textContent = msg;
+    if (input) input.classList.toggle('error', !!msg);
+  }
+
+  function validate() {
+    let ok = true;
+    const name = document.getElementById('res-name').value.trim();
+    const email = document.getElementById('res-email').value.trim();
+    const phone = document.getElementById('res-phone').value.trim();
+    const size = document.getElementById('res-size').value;
+    const date = document.getElementById('res-date').value;
+    const time = document.getElementById('res-time').value;
+
+    setError('name', !name ? 'Please enter your name.' : '');
+    if (!name) ok = false;
+
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    setError('email', !email ? 'Please enter your email.' : !emailRe.test(email) ? 'Invalid email address.' : '');
+    if (!email || !emailRe.test(email)) ok = false;
+
+    setError('phone', !phone ? 'Please enter your phone number.' : '');
+    if (!phone) ok = false;
+
+    setError('size', !size ? 'Please select a party size.' : '');
+    if (!size) ok = false;
+
+    setError('date', !date ? 'Please choose a date.' : date < today ? 'Date must be in the future.' : '');
+    if (!date || date < today) ok = false;
+
+    setError('time', !time ? 'Please choose a time.' : '');
+    if (!time) ok = false;
+
+    return ok;
+  }
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    if (!validate()) return;
+
+    submit.classList.add('loading');
+    submit.disabled = true;
+
+    setTimeout(() => {
+      submit.classList.remove('loading');
+      submit.disabled = false;
+      form.reset();
+      showToast();
+    }, 1800);
+  });
+}
+
+function showToast() {
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 4000);
+}
+
+// ─── Navbar scroll ─────────────────────────────────────────────
+function initNavbar() {
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+}
+
+// ─── Hamburger ─────────────────────────────────────────────────
+function initHamburger() {
+  const btn = document.getElementById('hamburger');
+  const menu = document.getElementById('nav-mobile');
+  btn.addEventListener('click', () => {
+    const open = btn.classList.toggle('open');
+    menu.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open);
+  });
+  menu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      btn.classList.remove('open');
+      menu.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+    });
+  });
+}
+
+// ─── Scroll reveal ─────────────────────────────────────────────
+function initReveal() {
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  els.forEach(el => io.observe(el));
+}
+
+// ─── Hero parallax ─────────────────────────────────────────────
+function initParallax() {
+  const bg = document.getElementById('hero-parallax');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY < window.innerHeight) {
+      bg.style.transform = `scale(1.08) translateY(${window.scrollY * 0.22}px)`;
+    }
+  }, { passive: true });
+}
+
+// ─── Init all ──────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  initNavbar();
+  initHamburger();
+  initTabs();
+  initGallery();
+  initCarousel();
+  initForm();
+  initReveal();
+  initParallax();
+});
+</script>
+</body>
+</html>
